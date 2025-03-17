@@ -2,4 +2,10 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/youriton/scouts.yourit.online/public_html/
-    - /bin/cp -R * $DEPLOYPATH
+    - echo "Deploying to $DEPLOYPATH"
+    - mkdir -p $DEPLOYPATH
+    - rsync -av --exclude='node_modules' --exclude='.git' . $DEPLOYPATH/
+    - cd $DEPLOYPATH
+    - npm install
+    - echo "Starting application"
+    - npm start
